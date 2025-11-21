@@ -16,9 +16,12 @@ def create_trip_table():
     c.execute("""
     CREATE TABLE IF NOT EXISTS trips (
                         trip_ID INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
-                        destination TEXT NOT NULL,
-                        start_date TEXT,
-                        end_date TEXT, 
+                        departure_city, TEXT NOT NULL,
+                        departure_date, TEXT NOT NULL,
+                        arrival_city, TEXT NOT NULL,
+                        arrival_date, TEXT NOT NULL
+                        destination_city TEXT NOT NULL,
+                        return_date TEXT,
                         occasion TEXT
     )
     """)
@@ -44,7 +47,7 @@ def create_trip_users_table():
     conn.commit()
     conn.close()
 
-def add_trip(destination, start_date, end_date, occasion, user_ids):
+def add_trip(departure_city, departure_date, arrival_city, arrival_date, return_date, occasion, user_ids):
     conn = connect()
     conn.execute("PRAGMA foreign_keys = ON;")
     c = conn.cursor()
