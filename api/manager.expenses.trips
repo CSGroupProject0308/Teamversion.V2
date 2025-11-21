@@ -1,0 +1,13 @@
+update_expense_status(expense_id, "approved")
+update_expense_status(expense_id, "rejected")
+
+
+Budget tracker
+
+For each trip, or per manager:
+
+Use get_total_expenses_for_trip(trip_ID)
+
+Compare vs planned budget (once you store it in trips table)
+
+Visualize per-trip or per-month spend.

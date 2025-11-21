@@ -1,0 +1,38 @@
+''''to the following form, make the following updates: 
+
+destination = st.text_input("Destination")
+start_date = st.date_input("Departure")
+end_date = st.date_input("Return")
+occasion = st.text_input("Occasion")
+
+'''#Update'''
+#sbb_booking_token = st.text_input("SBB Booking Token (optional)")
+#sbb_api_token = st.text_input("SBB API Token (optional)", type="password")
+''''''
+''''update to trips fuctions###
+
+#add_trip(destination, start_date, end_date, occasion, user_ids, sbb_booking_token, sbb_api_token)
+'''
+`#Replace the existing trip_list_view function with the following code:`
+'''SELECT t.trip_ID, t.destination, t.start_date, t.end_date, t.occasion
+
+
+'''#SELECT t.trip_ID, t.destination, t.start_date, t.end_date, t.occasion,
+       #t.sbb_booking_token, t.sbb_api_token''''''
+
+       '''corrected version'''
+
+''''SELECT 
+        t.trip_ID,
+        t.destination,
+        t.start_date,
+        t.end_date,
+        t.occasion,
+        t.sbb_booking_token,
+        t.sbb_api_token
+    FROM trips t
+    JOIN user_trips ut ON t.trip_ID = ut.trip_ID
+    WHERE ut.user_ID = ?
+    ORDER BY t.start_date ASC
+"""
+''''
