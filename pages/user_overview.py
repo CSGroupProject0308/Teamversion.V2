@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 from datetime import date
-from db.db_functions_users import edit_own_profile
-from db.db_functions_usertrips import get_user_trips
+import sqlite3
+
+from db.db_functions_user_trips import get_user_trips
 
 # --- Page setup ---
 st.set_page_config(page_title="Employee Dashboard", layout="wide")
@@ -13,24 +14,21 @@ if "role" not in st.session_state or st.session_state["role"] != "User":
     st.error("Access denied. Please log in as User.")
     st.stop()
 
-# --- Layout ---
 left, right = st.columns([4, 2], gap="large")
 
-# --- LEFT COLUMN: Trip Overview ---
+with right:
+    st. subheader("Trip-Management")
+
 with left:
-    st.subheader("Trip Overview")
+    st.subheader("Trip-Overview")
+    get_user_trips(user_id=st.session_state["user_ID"])
 
-    user_id = st.session_state.get("user_id", None)
-    if user_id is None:
-        st.warning("No user logged in. Please log in first.")
-        st.stop()
+# Fetch trips from the DB
+trips = get_user_trips(user_id=st.session_state["user_ID"])
 
-    # Fetch trips from the DB
-    trips = get_user_trips(user_id)
-
-    if trips is None or trips.empty:
+if trips is None or trips.empty:
         st.info("You have no trips recorded yet.")
-    else:
+else:
         trips["date_start"] = pd.to_datetime(trips["date_start"])
         trips["date_end"] = pd.to_datetime(trips["date_end"])
 
@@ -62,5 +60,4 @@ with left:
             )
 
 # --- RIGHT COLUMN: Edit Profile ---
-with right:
-    edit_own_profile()
+
